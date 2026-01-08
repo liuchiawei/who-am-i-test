@@ -1,0 +1,187 @@
+# 心理測驗網頁專案開發規則
+
+## 專案概述
+心理測驗網頁專案：
+- **前端**：shadcn/ui + motion/react
+- **後端**：Prisma + PostgreSQL (NeonDB)
+- **架構**：首頁為測驗列表，其餘為動態路由測驗頁面
+
+## 核心開發原則
+
+### 1. 代碼風格
+- 保持代碼簡潔，避免重複（DRY）
+- 重複代碼抽取為共用模組
+- 遵循 SoC、SRP 原則
+- 註釋使用中文，解釋「為什麼」而非「做什麼」
+
+### 2. 技術棧規範
+
+#### Next.js 16+ (App Router)
+- 預設使用 Server Components，必要時使用 Client Components
+- 路由結構：`app/tests/[slug]/page.tsx`
+- 快取：使用 `unstable_cache`、ISR、`cache()`、Route Segment Config
+
+#### UI & 動畫
+- **shadcn/ui**：共用元件在 `components/ui/`，業務元件在 `components/`
+- **motion/react**：流暢動畫，避免過度使用影響效能
+
+#### 資料庫
+- **Prisma ORM**：Schema 在 `prisma/schema.prisma`
+- 查詢邏輯封裝在 Service Layer 或 API Routes
+- 使用 Prisma Client 進行所有 DB 操作
+
+### 3. 檔案組織結構
+
+```
+app/
+  ├── page.tsx              # 首頁（測驗列表）
+  ├── layout.tsx            # Root Layout
+  ├── tests/[slug]/page.tsx # 動態路由
+  └── api/                  # API Routes
+
+components/
+  ├── ui/                   # shadcn/ui components
+  ├── tests/                # 測驗相關元件
+  └── shared/               # 共用業務元件
+
+lib/
+  ├── utils.ts
+  ├── prisma.ts
+  └── cache/                # Cache utilities
+
+prisma/
+  └── schema.prisma
+```
+
+### 4. 代碼組織最佳實踐
+
+#### 元件設計
+- 單一職責，複雜邏輯抽取為 Custom Hooks
+- 複雜元件拆分為子元件
+- 嚴格 TypeScript 類型檢查
+
+#### API 設計
+- RESTful 原則，統一錯誤處理，適當 HTTP 狀態碼
+
+#### 資料庫設計
+- Schema 正規化，適當索引，正確定義關聯
+
+#### 業務邏輯設計
+- **遵循業界標準**：RESTful API、資料驗證、錯誤處理、Transaction、Service Layer
+- **Service Layer 模式**：業務邏輯封裝在 Service Layer，不直接寫在元件或 API Routes
+- **DDD**：複雜業務邏輯遵循 DDD 原則，業務規則封裝在 Domain Models
+- **Transaction**：多個 DB 操作使用 Transaction 確保一致性
+- **驗證**：使用 Zod/Yup 在 Service Layer 統一處理
+- **錯誤處理**：使用自訂 Error 類別，便於統一處理
+
+### 5. 開發流程
+
+#### 新增測驗頁面
+1. 在 `app/tests/[slug]/` 建立路由
+2. 建立 `page.tsx`
+3. 在 `components/tests/` 建立專用元件（如需要）
+4. 更新 Prisma Schema（如需要）
+5. 在首頁列表加入連結
+
+#### 重構原則
+- 發現重複代碼立即抽取為共用模組
+- 保持函數和元件小型化
+- 使用 TypeScript Interface 定義資料結構
+
+### 6. 註釋規範
+- 中文註釋，JSDoc 風格
+- 解釋「為什麼」而非「做什麼」
+
+### 7. 效能優化（效能優先）
+
+#### 核心原則
+- **效能優先**：所有決策優先考慮效能影響
+- **減少 DB 查詢**：合併查詢，批量操作，避免 N+1
+- **提升載入速度**：Code splitting、Lazy loading
+
+#### DB 查詢優化
+- 使用 Prisma `include`/`select` 一次性獲取關聯資料，避免 N+1
+- 批量查詢（`findMany`）優於多次 `findUnique`
+- 使用索引優化查詢
+- `Promise.all()` 並行執行獨立查詢
+- 避免迴圈中執行查詢
+- `select` 只獲取必要欄位
+
+#### 前端效能優化
+- `next/image` 圖片優化
+- Dynamic import 減少初始載入
+- React `memo`/`useMemo`/`useCallback` 優化渲染
+- `loading.tsx` + Suspense 提升載入體驗
+- Server Components 減少客戶端 JS
+- `generateStaticParams` 預生成靜態頁面（如適用）
+- 優先載入 Critical Resources，延遲載入非關鍵資源
+- Streaming + Suspense 提升感知效能
+- 優化字體載入，壓縮靜態資源
+
+### 8. 快取策略
+
+#### 快取原則
+- 對頻繁讀取且不常變動的資料實施快取
+- 必須實作完整的快取更新機制，確保資料一致性
+- 設定適當的 TTL 和失效條件
+
+#### Next.js 快取機制
+- `unstable_cache` 快取 Server Components 查詢
+- ISR (`revalidate`) 設定頁面重新驗證時間
+- `cache()` 快取 fetch 請求
+- Route Segment Config (`dynamic`、`revalidate`)
+
+#### revalidateTag 規範 (Next.js 16+)
+- **第二個參數為必須**：`revalidateTag(tag, cacheLife)`，推薦 `'max'` 啟用 SWR
+- **單參數形式已棄用**：`revalidateTag(tag)` 已 deprecated，應遷移到兩參數形式
+- **立即過期**：webhook 場景使用 `revalidateTag(tag, { expire: 0 })`
+- **範例**：
+  ```typescript
+  revalidateTag('posts', 'max')           // ✅ 推薦
+  revalidateTag('posts', { expire: 0 })    // ✅ webhook
+  revalidateTag('posts')                   // ❌ deprecated
+  ```
+
+#### 快取層級與更新邏輯
+- **層級**：Page-level (ISR)、Data-level (查詢結果)、API-level (Route 回應)
+- **更新策略**：
+  - 新增/更新/刪除測驗時：清除相關快取（使用 Cache Tags 精確控制）
+  - 使用 `revalidatePath`/`revalidateTag` 手動觸發更新
+- **快取鍵設計**：使用有意義且唯一的鍵值，方便管理
+
+#### 快取實作結構
+```
+lib/cache/
+  ├── cache-keys.ts          # 快取鍵常數
+  ├── cache-utils.ts         # 工具函數
+  └── cache-invalidation.ts  # 失效邏輯
+```
+
+#### 快取注意事項
+- 避免快取個人化資料（除非有適當的鍵值設計）
+- 根據資料更新頻率設定 TTL
+- 監控快取命中率，調整策略
+- 開發環境可關閉快取以便除錯
+
+### 9. 錯誤處理
+- 使用 Next.js `error.tsx` 處理錯誤邊界
+- API 錯誤提供適當錯誤訊息
+- 使用者操作錯誤提供友善提示
+
+### 10. 樣式規範
+- Tailwind CSS + shadcn/ui 設計系統
+- 保持一致的間距、顏色、字體規範
+- 支援深色模式
+
+### 11. 測試考量
+- 關鍵業務邏輯適當錯誤處理
+- 使用者輸入驗證機制
+- 確保 a11y 基本要求
+
+## 注意事項
+- 使用 pnpm 作為套件管理器
+- **效能優先**：所有決策優先考慮效能影響
+- 保持代碼簡潔，避免過度設計
+- 優先考慮可維護性和可讀性
+- 遵循 Next.js 和 React 最佳實踐
+- 實作新功能時，必須同時考慮快取策略和更新邏輯

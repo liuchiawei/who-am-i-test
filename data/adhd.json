@@ -4,6 +4,8 @@
   "questions": [
     {
       "id": 1,
+      "isMain": true,
+      "subscale": "Inattentiveness",
       "title": "虎頭蛇尾",
       "question": "完成任何計劃中最具挑戰的部分之後，最後的收尾（如存檔、校字、收拾工具）總是拖著沒做完？",
       "options": [
@@ -16,6 +18,8 @@
     },
     {
       "id": 2,
+      "isMain": true,
+      "subscale": "Inattentiveness",
       "title": "大腦打結",
       "question": "面對要排先後順序的事（如辦活動、繁瑣家務），腦袋常一片混亂，不知從何開始？",
       "options": [
@@ -28,6 +32,8 @@
     },
     {
       "id": 3,
+      "isMain": true,
+      "subscale": "Inattentiveness",
       "title": "忘東忘西",
       "question": " 雖然有記下來，但還是常忘記約好的事、忘記繳費，或被提醒才驚覺「啊！我忘了」？",
       "options": [
@@ -40,6 +46,8 @@
     },
     {
       "id": 4,
+      "isMain": true,
+      "subscale": "Inattentiveness",
       "title": "拖延大王",
       "question": "遇到要動腦或很煩的事，會習慣性滑手機或找藉口先做別的，不到最後一刻不動工？",
       "options": [
@@ -52,10 +60,12 @@
     },
     {
       "id": 5,
+      "isMain": true,
+      "subscale": "Impulsivity",
       "title": "沒坐相",
       "question": "坐著開會或吃飯久一點，手腳就不自覺想動、玩筆、抖腳，或一直想站起來走動？",
       "options": [
-        { "value": 1, "label": "從不", "score": 0, "subcategory": "沒坐相" },
+        { "value": 1, "label": "從不", "score": 0, "subscales": "沒坐相" },
         { "value": 2, "label": "很少", "score": 1 },
         { "value": 3, "label": "有時", "score": 2 },
         { "value": 4, "label": "經常", "score": 3 },
@@ -64,6 +74,8 @@
     },
     {
       "id": 6,
+      "isMain": true,
+      "subscale": "Impulsivity",
       "title": "靜不下來",
       "question": "內心總有一股焦躁感，覺得一定要找事做，沒辦法放鬆享受安靜，像電力過剩的機器？",
       "options": [
@@ -76,6 +88,8 @@
     },
     {
       "id": 7,
+      "isMain": false,
+      "subscale": "Inattentiveness",
       "question": "做無聊瑣事（如對帳、打資料）時，會不會出現一些很瞎的低級錯誤？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -87,6 +101,8 @@
     },
     {
       "id": 8,
+      "isMain": false,
+      "subscale": "Inattentiveness",
       "question": "做重複性高的工作時，腦袋會不會很快就飄走，沒辦法盯著這件事做太久？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -98,6 +114,8 @@
     },
     {
       "id": 9,
+      "isMain": false,
+      "subscale": "Inattentiveness",
       "question": "別人說話時，明明有聽見，但左耳進右耳出，完全沒聽進去？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -109,6 +127,8 @@
     },
     {
       "id": 10,
+      "isMain": false,
+      "subscale": "Inattentiveness",
       "question": "鑰匙、錢包、手機是不是常隨手一放就失蹤，每天都要花時間找東西？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -120,6 +140,8 @@
     },
     {
       "id": 11,
+      "isMain": false,
+      "subscale": "Inattentiveness",
       "question": "辦公時旁邊有人走路、外面車聲一響，你就忍不住去看，很難專注在眼前的事？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -131,6 +153,8 @@
     },
     {
       "id": 12,
+      "isMain": false,
+      "subscale": "Impulsivity",
       "question": "社交場合不該站起時，例如開會、上課或吃飯到一半，總是會找理由（如裝水、上廁所）站起來走一下？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -142,6 +166,8 @@
     },
     {
       "id": 13,
+      "isMain": false,
+      "subscale": "Impulsivity",
       "question": "就算身體不動，心裡也總有一種坐立難安、悶悶的、想找點什麼事做的焦慮感？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -153,6 +179,8 @@
     },
     {
       "id": 14,
+      "isMain": false,
+      "subscale": "Impulsivity",
       "question": "覺得「無所事事」很難受，難得放假卻沒辦法安靜地放鬆，一定要把自己弄得很忙？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -164,6 +192,8 @@
     },
     {
       "id": 15,
+      "isMain": false,
+      "subscale": "Verbal",
       "question": " 跟人聊天時會不會越講越嗨，講個不停，回過神才發現自己好像話太多？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -175,6 +205,8 @@
     },
     {
       "id": 16,
+      "isMain": false,
+      "subscale": "Verbal",
       "question": "對方話才講到一半，你猜到他要說什麼就忍不住直接接話，打斷別人的思緒？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -186,6 +218,8 @@
     },
     {
       "id": 17,
+      "isMain": false,
+      "subscale": "Verbal",
       "question": "排隊、等紅燈、等電腦跑資料會讓你超級煩躁，一秒鐘都等不下去？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
@@ -197,6 +231,8 @@
     },
     {
       "id": 18,
+      "isMain": false,
+      "subscale": "Verbal",
       "question": "看到別人在忙或在聊天，你沒想太多就直接衝過去插嘴，或強行切斷別人的話題？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },

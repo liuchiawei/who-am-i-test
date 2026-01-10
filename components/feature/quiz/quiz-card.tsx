@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import QuizCardHeader from "./quiz-card-header";
 import QuizCardContent from "./quiz-card-content";
 import QuizCardFooter from "./quiz-card-footer";
-import QuizProgressbar from "./quiz-progressbar";
 import type { Question } from "@/types/quiz";
 
 // 測驗卡片元件 Props
@@ -33,10 +32,6 @@ export default function QuizCard({
 }: QuizCardProps) {
   return (
     <Card>
-      <QuizProgressbar
-        currentIndex={currentIndex}
-        totalQuestions={totalQuestions}
-      />
       <QuizCardHeader
         questionTitle={question.title}
         question={question.question}

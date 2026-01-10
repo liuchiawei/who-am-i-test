@@ -7,6 +7,7 @@ import { useState, useMemo } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import QuizCard from "@/components/feature/quiz/quiz-card";
 import ResultCard from "@/components/feature/result/result-card";
+import QuizProgressbar from "@/components/feature/quiz/quiz-progressbar";
 import type { QuizData, QuizResult } from "@/types/quiz";
 // 直接 import JSON 資料，避免 HTTP 請求問題
 // TypeScript 配置已啟用 resolveJsonModule，可以直接 import
@@ -21,15 +22,17 @@ export default function ADHDTestPage() {
   );
   const [isCompleted, setIsCompleted] = useState(false);
 
-  // 計算滿分（每題最高分的總和）
+  // 計算滿分（只計算 isMain: true 的題目，每題最高分的總和）
   const maxScore = useMemo(() => {
-    return quizData.questions.reduce((sum, question) => {
-      // 找出該題所有選項中的最高分數
-      const maxQuestionScore = Math.max(
-        ...question.options.map((option) => option.score)
-      );
-      return sum + maxQuestionScore;
-    }, 0);
+    return quizData.questions
+      .filter((question) => question.isMain === true)
+      .reduce((sum, question) => {
+        // 找出該題所有選項中的最高分數
+        const maxQuestionScore = Math.max(
+          ...question.options.map((option) => option.score)
+        );
+        return sum + maxQuestionScore;
+      }, 0);
   }, [quizData]);
 
   // 計算測驗結果
@@ -43,27 +46,77 @@ export default function ADHDTestPage() {
       return null;
     }
 
-    // 計算總分（根據選中的 value 找到對應的 option.score 並相加）
+    // 計算主要分數（只計算 isMain: true 的題目）
     // answers 儲存的是選中的 option.value，需要根據 value 找到對應的 option.score
-    // すべての回答が null でないことを確認済み（42-44行目）なので、型アサーションを使用
     let totalScore = 0;
     for (
       let questionIndex = 0;
       questionIndex < answers.length;
       questionIndex++
     ) {
+      const question = quizData.questions[questionIndex];
+      // 只計算 isMain: true 的題目
+      if (question.isMain !== true) {
+        continue;
+      }
+
       const answerValue = answers[questionIndex];
       // null チェック（防御的プログラミング、TypeScript の型チェックを通過するため）
       if (answerValue === null) {
         continue;
       }
       // 根據問題索引和選中的 value，找到對應的 option，取得 score
-      const question = quizData.questions[questionIndex];
       const selectedOption = question.options.find(
         (opt) => opt.value === answerValue
       );
       if (selectedOption) {
         totalScore += selectedOption.score;
+      }
+    }
+
+    // 計算各個 subscale 的分數
+    // subscale 包含所有相關題目（不論 isMain）
+    const subscaleScores: {
+      [key: string]: { score: number; maxScore: number };
+    } = {};
+    const subscales = ["Inattentiveness", "Impulsivity", "Verbal"];
+
+    for (const subscale of subscales) {
+      let score = 0;
+      let maxScore = 0;
+
+      for (
+        let questionIndex = 0;
+        questionIndex < quizData.questions.length;
+        questionIndex++
+      ) {
+        const question = quizData.questions[questionIndex];
+        // 只計算該 subscale 的題目
+        if (question.subscale !== subscale) {
+          continue;
+        }
+
+        // 計算該題最高分
+        const maxQuestionScore = Math.max(
+          ...question.options.map((option) => option.score)
+        );
+        maxScore += maxQuestionScore;
+
+        // 計算該題得分
+        const answerValue = answers[questionIndex];
+        if (answerValue !== null) {
+          const selectedOption = question.options.find(
+            (opt) => opt.value === answerValue
+          );
+          if (selectedOption) {
+            score += selectedOption.score;
+          }
+        }
+      }
+
+      if (maxScore > 0) {
+        // 只有當該 subscale 有題目時才記錄
+        subscaleScores[subscale] = { score, maxScore };
       }
     }
 
@@ -81,6 +134,8 @@ export default function ADHDTestPage() {
       grade: range.grade,
       label: range.label,
       description: range.description,
+      subscaleScores:
+        Object.keys(subscaleScores).length > 0 ? subscaleScores : undefined,
     };
   }, [quizData, answers, isCompleted]);
 
@@ -171,17 +226,41 @@ export default function ADHDTestPage() {
   const currentQuestion = quizData.questions[currentQuestionIndex];
   const totalQuestions = quizData.questions.length;
 
+  // 判斷是否已開始作答（有任何答案或已跳轉題目）
+  const hasStarted =
+    answers.some((ans) => ans !== null) || currentQuestionIndex > 0;
+
   return (
     <div className="container mx-auto max-w-2xl py-8 px-4">
-      <motion.div
-        key="header"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-6 text-center"
-      >
-        <h1 className="text-3xl font-bold">{quizData.title}</h1>
-        <p className="mt-2 text-muted-foreground">{quizData.description}</p>
-      </motion.div>
+      <AnimatePresence mode="wait">
+        {!hasStarted ? (
+          <motion.div
+            key="header-title"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="mb-6 text-center"
+          >
+            <h1 className="text-3xl font-bold">{quizData.title}</h1>
+            <p className="mt-2 text-muted-foreground">{quizData.description}</p>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="header-progress"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="mb-6"
+          >
+            <QuizProgressbar
+              currentIndex={currentQuestionIndex}
+              totalQuestions={totalQuestions}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence mode="wait">
         <motion.div

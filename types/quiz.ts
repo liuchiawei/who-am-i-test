@@ -11,6 +11,8 @@ export interface Question {
   title?: string;
   question: string;
   options: QuestionOption[];
+  isMain?: boolean;
+  subscale?: string;
 }
 
 export interface QuizData {
@@ -33,4 +35,5 @@ export interface QuizResult {
   grade: "low" | "medium" | "high";
   label: string;
   description: string;
+  subscaleScores?: { [key: string]: { score: number; maxScore: number } };
 }

@@ -52,10 +52,10 @@
     },
     {
       "id": 5,
-      "title": "坐立難安",
+      "title": "沒坐相",
       "question": "坐著開會或吃飯久一點，手腳就不自覺想動、玩筆、抖腳，或一直想站起來走動？",
       "options": [
-        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 1, "label": "從不", "score": 0, "subcategory": "沒坐相" },
         { "value": 2, "label": "很少", "score": 1 },
         { "value": 3, "label": "有時", "score": 2 },
         { "value": 4, "label": "經常", "score": 3 },
@@ -66,6 +66,138 @@
       "id": 6,
       "title": "靜不下來",
       "question": "內心總有一股焦躁感，覺得一定要找事做，沒辦法放鬆享受安靜，像電力過剩的機器？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 7,
+      "question": "做無聊瑣事（如對帳、打資料）時，會不會出現一些很瞎的低級錯誤？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 8,
+      "question": "做重複性高的工作時，腦袋會不會很快就飄走，沒辦法盯著這件事做太久？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 9,
+      "question": "別人說話時，明明有聽見，但左耳進右耳出，完全沒聽進去？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 10,
+      "question": "鑰匙、錢包、手機是不是常隨手一放就失蹤，每天都要花時間找東西？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 11,
+      "question": "辦公時旁邊有人走路、外面車聲一響，你就忍不住去看，很難專注在眼前的事？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 12,
+      "question": "社交場合不該站起時，例如開會、上課或吃飯到一半，總是會找理由（如裝水、上廁所）站起來走一下？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 13,
+      "question": "就算身體不動，心裡也總有一種坐立難安、悶悶的、想找點什麼事做的焦慮感？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 14,
+      "question": "覺得「無所事事」很難受，難得放假卻沒辦法安靜地放鬆，一定要把自己弄得很忙？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 15,
+      "question": " 跟人聊天時會不會越講越嗨，講個不停，回過神才發現自己好像話太多？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 16,
+      "question": "對方話才講到一半，你猜到他要說什麼就忍不住直接接話，打斷別人的思緒？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 17,
+      "question": "排隊、等紅燈、等電腦跑資料會讓你超級煩躁，一秒鐘都等不下去？",
+      "options": [
+        { "value": 1, "label": "從不", "score": 0 },
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
+      ]
+    },
+    {
+      "id": 18,
+      "question": "看到別人在忙或在聊天，你沒想太多就直接衝過去插嘴，或強行切斷別人的話題？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
         { "value": 2, "label": "很少", "score": 1 },

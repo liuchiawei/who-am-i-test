@@ -3,7 +3,7 @@
 import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export interface QuizCardHeaderProps {
-  questionTitle: string;
+  questionTitle?: string;
   question: string;
   currentIndex: number;
   totalQuestions: number;

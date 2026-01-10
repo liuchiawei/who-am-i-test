@@ -33,7 +33,7 @@ export default function QuizCardContent({
       <RadioGroup
         value={selectedAnswer !== null ? selectedAnswer.toString() : undefined}
         onValueChange={handleValueChange}
-        className="gap-2"
+        className="gap-1"
       >
         {options.map((option, index) => (
           <motion.div
@@ -41,7 +41,7 @@ export default function QuizCardContent({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05, duration: 0.2 }}
-            className="flex items-center space-x-3 rounded-md border p-3 transition-colors hover:bg-accent"
+            className="flex items-center space-x-3 rounded-md border p-3 transition-colors  hover:bg-accent"
           >
             <RadioGroupItem
               value={option.value.toString()}
@@ -49,7 +49,7 @@ export default function QuizCardContent({
             />
             <Label
               htmlFor={`option-${option.value}`}
-              className="flex-1 cursor-pointer font-normal"
+              className="peer flex-1 cursor-pointer font-normal"
             >
               {option.label}
             </Label>

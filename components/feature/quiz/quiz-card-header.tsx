@@ -3,12 +3,14 @@
 import { CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export interface QuizCardHeaderProps {
+  questionTitle: string;
   question: string;
   currentIndex: number;
   totalQuestions: number;
 }
 
 export default function QuizCardHeader({
+  questionTitle,
   question,
   currentIndex,
   totalQuestions,
@@ -18,7 +20,8 @@ export default function QuizCardHeader({
       <CardDescription>
         第 {currentIndex + 1} / {totalQuestions} 題
       </CardDescription>
-      <CardTitle className="text-lg">{question}</CardTitle>
+      <CardTitle className="text-lg">{questionTitle}</CardTitle>
+      <CardDescription className="text-sm text-muted-foreground text-justify">{question}</CardDescription>
     </CardHeader>
   );
 }

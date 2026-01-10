@@ -84,18 +84,28 @@ export default function ADHDTestPage() {
     };
   }, [quizData, answers, isCompleted]);
 
-  // 處理答案選擇 - 選擇答案後自動跳轉下一題
+  // 處理答案選擇 - 選擇答案後自動跳轉下一題或完成測驗
   const handleAnswer = (answer: number) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = answer;
     setAnswers(newAnswers);
 
-    // 自動跳轉到下一題（延遲一小段時間以提供視覺回饋）
+    // 自動跳轉到下一題或完成測驗（延遲一小段時間以提供視覺回饋）
     setTimeout(() => {
-      if (currentQuestionIndex < quizData.questions.length - 1) {
+      const isLastQuestion =
+        currentQuestionIndex === quizData.questions.length - 1;
+
+      if (isLastQuestion) {
+        // 最後一題時，檢查所有題目是否都已回答，然後自動完成測驗
+        // newAnswers 是最新的答案陣列，因為剛剛更新了當前題目的答案
+        if (newAnswers.every((ans) => ans !== null)) {
+          setIsCompleted(true);
+        }
+      } else {
+        // 不是最後一題時，跳轉到下一題
         setCurrentQuestionIndex(currentQuestionIndex + 1);
       }
-    }, 300);
+    }, 100);
   };
 
   // 返回上一題

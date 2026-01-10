@@ -38,6 +38,7 @@ export default function QuizCard({
         totalQuestions={totalQuestions}
       />
       <QuizCardHeader
+        questionTitle={question.title}
         question={question.question}
         currentIndex={currentIndex}
         totalQuestions={totalQuestions}

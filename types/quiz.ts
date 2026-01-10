@@ -8,6 +8,7 @@ export interface QuestionOption {
 
 export interface Question {
   id: number;
+  title: string;
   question: string;
   options: QuestionOption[];
 }

@@ -20,8 +20,14 @@ export default function QuizCardHeader({
       <CardDescription>
         第 {currentIndex + 1} / {totalQuestions} 題
       </CardDescription>
-      <CardTitle className="text-lg">{questionTitle}</CardTitle>
-      <CardDescription className="text-sm text-muted-foreground text-justify">{question}</CardDescription>
+      <CardTitle className="text-lg">
+        {questionTitle ? questionTitle : question}
+      </CardTitle>
+      {questionTitle && (
+        <CardDescription className="text-sm text-muted-foreground text-justify">
+          {question}
+        </CardDescription>
+      )}
     </CardHeader>
   );
 }

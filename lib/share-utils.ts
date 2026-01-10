@@ -26,7 +26,7 @@ export function generateShareImageUrl(
 /**
  * 下載圖片到本地
  */
-export async function downloadImage(imageUrl: string, filename: string = "測驗結果.png"): Promise<void> {
+export async function downloadImage(imageUrl: string, filename: string = "測驗結果.svg"): Promise<void> {
   try {
     const response = await fetch(imageUrl);
     if (!response.ok) {
@@ -125,7 +125,7 @@ export async function shareViaWebShareAPI(
   try {
     const response = await fetch(imageUrl);
     const blob = await response.blob();
-    const file = new File([blob], "測驗結果.png", { type: "image/png" });
+    const file = new File([blob], "測驗結果.svg", { type: "image/svg+xml" });
 
     await navigator.share({
       title,

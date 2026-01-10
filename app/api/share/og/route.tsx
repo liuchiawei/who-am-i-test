@@ -1,21 +1,10 @@
-// OG 圖片生成 API Route - 使用 Satori 生成測驗結果預覽圖
+// OG 圖片生成 API Route - 使用 Satori 生成測驗結果預覽圖（SVG 格式）
 // 符合 Open Graph 標準的 1200x630 圖片尺寸
 
 import { NextRequest, NextResponse } from "next/server";
 import satori from "satori";
 import { loadNotoSansTC } from "@/lib/fonts";
 import React from "react";
-
-// 動態導入 @resvg/resvg-js（用於將 SVG 轉換為 PNG）
-// 如果未安裝，則返回 SVG 格式
-async function getResvg() {
-  try {
-    const { Resvg } = await import("@resvg/resvg-js");
-    return Resvg;
-  } catch {
-    return null;
-  }
-}
 
 /**
  * 根據分級取得顏色（與 ResultCard 保持一致）
@@ -286,28 +275,7 @@ export async function GET(request: NextRequest) {
       grade,
     });
 
-    // 嘗試將 SVG 轉換為 PNG
-    const Resvg = await getResvg();
-    if (Resvg) {
-      const resvg = new Resvg(svg, {
-        fitTo: {
-          mode: "width",
-          value: 1200,
-        },
-      });
-      const pngData = resvg.render();
-      // asPng() 返回 Uint8Array，需要轉換為 Buffer
-      const pngBuffer = Buffer.from(pngData.asPng());
-
-      return new NextResponse(pngBuffer, {
-        headers: {
-          "Content-Type": "image/png",
-          "Cache-Control": "public, max-age=3600, s-maxage=3600",
-        },
-      });
-    }
-
-    // 如果無法轉換為 PNG，返回 SVG
+    // 返回 SVG 格式的圖片
     return new NextResponse(svg, {
       headers: {
         "Content-Type": "image/svg+xml",

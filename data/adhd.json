@@ -7,10 +7,10 @@
       "question": "完成任何計劃中最具挑戰的部分之後，最後的收尾（如存檔、校字、收拾工具）總是拖著沒做完？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
-        { "value": 2, "label": "很少", "score": 0 },
-        { "value": 3, "label": "有時", "score": 1 },
-        { "value": 4, "label": "經常", "score": 1 },
-        { "value": 5, "label": "總是", "score": 1 }
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
       ]
     },
     {
@@ -18,10 +18,10 @@
       "question": "面對要排先後順序的事（如辦活動、繁瑣家務），腦袋常一片混亂，不知從何開始？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
-        { "value": 2, "label": "很少", "score": 0 },
-        { "value": 3, "label": "有時", "score": 1 },
-        { "value": 4, "label": "經常", "score": 1 },
-        { "value": 5, "label": "總是", "score": 1 }
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
       ]
     },
     {
@@ -29,10 +29,10 @@
       "question": " 雖然有記下來，但還是常忘記約好的事、忘記繳費，或被提醒才驚覺「啊！我忘了」？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
-        { "value": 2, "label": "很少", "score": 0 },
-        { "value": 3, "label": "有時", "score": 1 },
-        { "value": 4, "label": "經常", "score": 1 },
-        { "value": 5, "label": "總是", "score": 1 }
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
       ]
     },
     {
@@ -40,10 +40,10 @@
       "question": "遇到要動腦或很煩的事，會習慣性滑手機或找藉口先做別的，不到最後一刻不動工？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
-        { "value": 2, "label": "很少", "score": 0 },
-        { "value": 3, "label": "有時", "score": 0 },
-        { "value": 4, "label": "經常", "score": 1 },
-        { "value": 5, "label": "總是", "score": 1 }
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
       ]
     },
     {
@@ -51,10 +51,10 @@
       "question": "坐著開會或吃飯久一點，手腳就不自覺想動、玩筆、抖腳，或一直想站起來走動？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
-        { "value": 2, "label": "很少", "score": 0 },
-        { "value": 3, "label": "有時", "score": 0 },
-        { "value": 4, "label": "經常", "score": 1 },
-        { "value": 5, "label": "總是", "score": 1 }
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
       ]
     },
     {
@@ -62,10 +62,10 @@
       "question": "內心總有一股焦躁感，覺得一定要找事做，沒辦法放鬆享受安靜，像電力過剩的機器？",
       "options": [
         { "value": 1, "label": "從不", "score": 0 },
-        { "value": 2, "label": "很少", "score": 0 },
-        { "value": 3, "label": "有時", "score": 0 },
-        { "value": 4, "label": "經常", "score": 1 },
-        { "value": 5, "label": "總是", "score": 1 }
+        { "value": 2, "label": "很少", "score": 1 },
+        { "value": 3, "label": "有時", "score": 2 },
+        { "value": 4, "label": "經常", "score": 3 },
+        { "value": 5, "label": "總是", "score": 4 }
       ]
     }
   ],
@@ -73,17 +73,24 @@
     "ranges": [
       {
         "min": 0,
-        "max": 3,
+        "max": 9,
         "grade": "low",
         "label": "低風險",
         "description": "您的 ADHD 相關症狀較少，但建議保持良好生活習慣，包括規律作息、適度運動和時間管理。"
       },
       {
-        "min": 4,
-        "max": 6,
+        "min": 10,
+        "max": 13,
         "grade": "medium",
         "label": "中風險",
         "description": "您可能有一些 ADHD 相關症狀。建議您尋求專業心理健康評估，並學習一些注意力管理和組織技巧來改善日常生活品質。"
+      },
+      {
+        "min": 14,
+        "max": 24,
+        "grade": "high",
+        "label": "高風險",
+        "description": "您可能有較明顯的 ADHD 相關症狀。強烈建議您尋求專業醫療協助，進行完整的評估和診斷，以獲得適當的治療和支持。"
       }
     ]
   }

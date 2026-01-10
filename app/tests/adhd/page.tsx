@@ -45,15 +45,27 @@ export default function ADHDTestPage() {
 
     // 計算總分（根據選中的 value 找到對應的 option.score 並相加）
     // answers 儲存的是選中的 option.value，需要根據 value 找到對應的 option.score
-    const totalScore: number = answers.reduce((sum, answerValue, questionIndex) => {
+    // すべての回答が null でないことを確認済み（42-44行目）なので、型アサーションを使用
+    let totalScore = 0;
+    for (
+      let questionIndex = 0;
+      questionIndex < answers.length;
+      questionIndex++
+    ) {
+      const answerValue = answers[questionIndex];
+      // null チェック（防御的プログラミング、TypeScript の型チェックを通過するため）
+      if (answerValue === null) {
+        continue;
+      }
       // 根據問題索引和選中的 value，找到對應的 option，取得 score
       const question = quizData.questions[questionIndex];
-      const selectedOption = question.options.find((opt) => opt.value === answerValue);
-      if (!selectedOption) {
-        return sum;
+      const selectedOption = question.options.find(
+        (opt) => opt.value === answerValue
+      );
+      if (selectedOption) {
+        totalScore += selectedOption.score;
       }
-      return sum + selectedOption.score;
-    }, 0);
+    }
 
     // 根據總分判斷分級
     const range = quizData.scoring.ranges.find(
@@ -133,7 +145,12 @@ export default function ADHDTestPage() {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <ResultCard result={result} maxScore={maxScore} onRestart={handleRestart} />
+            <ResultCard
+              result={result}
+              maxScore={maxScore}
+              quizTitle={quizData.title}
+              onRestart={handleRestart}
+            />
           </motion.div>
         </AnimatePresence>
       </div>
